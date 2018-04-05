@@ -1,6 +1,7 @@
 const cells = document.querySelectorAll(".js-cell");
 let currentPlayer = "+";
 let currentBoard = [null, null, null, null, null, null, null, null, null];
+const winnerBoardContainer = document.getElementById('js-winner-board-container');
 const winnerBoard = document.getElementById('js-winner-board');
 
 const ANSWERS = [
@@ -36,8 +37,8 @@ const showWinner = (player) => {
   const h3 = document.createElement("h3");
   const content = document.createTextNode(player);
   h3.appendChild(content);
-  winnerBoard.appendChild(h3);
-  winnerBoard.className = winnerBoard.className + 'active'
+  winnerBoard.prepend(h3);
+  winnerBoard.classList.add('active');
 }
 
 checkWinnerPlayer = (player) => {

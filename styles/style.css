@@ -10,7 +10,7 @@ body {
   position: relative;
 }
 
-.winner-board {
+.winner-board-container {
   position: absolute;
   background-color: rgba(255, 255, 255, .5);
   top: 0;
@@ -18,8 +18,17 @@ body {
   bottom: 0;
   left: 0;
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.winner-board.active{
+
+.winner-board-container h3 {
+  transform: rotate(45deg);
+  font-size: 4rem;
+}
+
+.winner-board-container.active{
   display: flex;
 }
 
