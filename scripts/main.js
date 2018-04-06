@@ -3,6 +3,7 @@ let currentPlayer = "+";
 let currentBoard = [null, null, null, null, null, null, null, null, null];
 const winnerBoardContainer = document.getElementById('js-winner-board-container');
 const winnerBoard = document.getElementById('js-winner-board');
+const clearButton = document.getElementById('js-clear-board');
 
 const ANSWERS = [
   [0, 1, 2],
@@ -18,19 +19,41 @@ const ANSWERS = [
 // Add event listerners
 const start = () => {
   for (cell of cells) {
-    cell.addEventListener("click", onClick);
+    cell.addEventListener("click", renderPlay);
   }
 };
+
+const removeWinnerBoard = () => {
+  return winnerBoard.classList.remove('active');
+}
+
+
+const removeNodesContent = (nodes) => {
+  for (node of nodes) {
+    if (node.firstElementChild) {
+      node.firstElementChild.remove();
+    }
+  }
+}
+
+const clearBoard = event => {
+  event.preventDefault();
+  start();
+  removeWinnerBoard();
+  removeNodesContent(cells);
+  removeNodesContent(winnerBoardContainer.);
+  currentPlayer = "+";
+  currentBoard = [null, null, null, null, null, null, null, null, null];
+}
+
+clearButton.addEventListener('click', clearBoard);
 
 const getPosition = element => {
   return Number.parseInt(element.dataset.cell, 10);
 };
 
 const changePlayer = player => {
-  if (player === "+") {
-    return (currentPlayer = "o");
-  }
-  return (currentPlayer = "+");
+  return player === "+" ? currentPlayer = "o" : currentPlayer = "+";
 };
 
 const showWinner = (player) => {
@@ -62,10 +85,10 @@ const fillBoard = position => {
 };
 
 const removeListener = element => {
-  return element.removeEventListener("click", onClick);
+  return element.removeEventListener("click", renderPlay);
 };
 
-const onClick = event => {
+const renderPlay = event => {
   const element = event.target;
   const position = getPosition(element);
   fillBoard(position);
@@ -80,5 +103,6 @@ const checkWin = player => {
     })
   })
 };
+
 
 start();
