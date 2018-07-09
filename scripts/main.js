@@ -1,13 +1,9 @@
-const cells = document.querySelectorAll(".js-cell");
-let currentPlayer = "+";
-let currentBoard = [null, null, null, null, null, null, null, null, null];
-const winnerBoardContainer = document.getElementById(
-  "js-winner-board-container"
-);
+const gridItems = document.querySelectorAll(".js-board-item");
+let currentPlayer = "x";
+let board = [null, null, null, null, null, null, null, null, null];
 const winnerBoard = document.getElementById("js-winner-board");
-const clearButton = document.getElementById("js-clear-board");
 const winnerPlayer = document.getElementById("js-winner-player");
-
+const clearButton = document.getElementById("js-clear-button");
 const ANSWERS = [
   [0, 1, 2],
   [3, 4, 5],
@@ -15,97 +11,66 @@ const ANSWERS = [
   [0, 3, 6],
   [1, 4, 7],
   [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
+  [2, 4, 6],
+  [0, 4, 8]
 ];
 
-// Add event listerners
-const start = () => {
-  for (cell of cells) {
-    cell.addEventListener("click", renderPlay);
-  }
+const togglePlayer = player => {
+  player === "x" ? (currentPlayer = "o") : (currentPlayer = "x");
 };
 
-const removeWinnerBoard = () => {
-  return winnerBoard.classList.remove("active");
+const removeEventListener = element => {
+  element.removeEventListener("click", handleGridItemClick);
 };
 
-const removeNodesContent = nodes => {
-  for (node of nodes) {
-    if (node.firstElementChild) {
-      node.firstElementChild.remove();
-    }
-  }
+const renderCurrrentPlayer = element => {
+  const text = document.createTextNode(currentPlayer);
+  element.appendChild(text);
+  togglePlayer(currentPlayer);
 };
 
-const removeWinnerPlayer = () => {
-  return (winnerPlayer.innerText = "");
-};
-
-const clearBoard = event => {
-  event.preventDefault();
-  start();
-  removeWinnerBoard();
-  removeNodesContent(cells);
-  removeWinnerPlayer();
-  currentPlayer = "+";
-  currentBoard = [null, null, null, null, null, null, null, null, null];
-};
-
-clearButton.addEventListener("click", clearBoard);
-
-const getPosition = element => {
-  return Number.parseInt(element.dataset.cell, 10);
-};
-
-const changePlayer = player => {
-  return player === "+" ? (currentPlayer = "o") : (currentPlayer = "+");
-};
-
-const showWinner = player => {
-  const content = document.createTextNode(player);
-  winnerPlayer.appendChild(content);
-  winnerBoard.classList.add("active");
-};
-
-checkWinnerPlayer = player => {
-  let winner = checkWin(currentPlayer);
-  if (winner) {
-    return showWinner(currentPlayer);
-  }
-  return changePlayer(currentPlayer);
-};
-
-const renderPlayer = element => {
-  const span = document.createElement("span");
-  const content = document.createTextNode(currentPlayer);
-  span.appendChild(content);
-  element.appendChild(span);
-  checkWinnerPlayer(currentPlayer);
-};
-
-const fillBoard = position => {
-  return (currentBoard[position] = currentPlayer);
-};
-
-const removeListener = element => {
-  return element.removeEventListener("click", renderPlay);
-};
-
-const renderPlay = event => {
-  const element = event.target;
-  const position = getPosition(element);
-  fillBoard(position);
-  renderPlayer(element);
-  removeListener(element);
+const moveToBoard = position => {
+  board[position] = currentPlayer;
 };
 
 const checkWin = player => {
   return ANSWERS.some(answer => {
     return answer.every(value => {
-      return player === currentBoard[value];
+      return player === board[value];
     });
   });
 };
 
-start();
+const checkWinner = player => {
+  const winner = checkWin(player);
+  if (winner) {
+    winnerPlayer.innerText = player;
+    winnerBoard.classList.remove("winner-board");
+  }
+};
+
+const handleGridItemClick = event => {
+  const position = event.target.dataset.cell;
+  moveToBoard(position);
+  checkWinner(currentPlayer);
+  renderCurrrentPlayer(event.target);
+  removeEventListener(event.target);
+};
+
+gridItems.forEach(gridItem => {
+  gridItem.addEventListener("click", handleGridItemClick);
+});
+
+const clearHtmlBoard = () => {
+  gridItems.forEach(gridItem => {
+    gridItem.innerText = "";
+  });
+};
+
+const clearBoard = () => {
+  board = [null, null, null, null, null, null, null, null, null];
+  clearHtmlBoard();
+  currentPlayer = "x";
+};
+
+clearButton.addEventListener("click", clearBoard);
