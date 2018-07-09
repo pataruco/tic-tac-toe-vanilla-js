@@ -1,9 +1,12 @@
 const cells = document.querySelectorAll(".js-cell");
 let currentPlayer = "+";
 let currentBoard = [null, null, null, null, null, null, null, null, null];
-const winnerBoardContainer = document.getElementById('js-winner-board-container');
-const winnerBoard = document.getElementById('js-winner-board');
-const clearButton = document.getElementById('js-clear-board');
+const winnerBoardContainer = document.getElementById(
+  "js-winner-board-container"
+);
+const winnerBoard = document.getElementById("js-winner-board");
+const clearButton = document.getElementById("js-clear-board");
+const winnerPlayer = document.getElementById("js-winner-player");
 
 const ANSWERS = [
   [0, 1, 2],
@@ -24,53 +27,54 @@ const start = () => {
 };
 
 const removeWinnerBoard = () => {
-  return winnerBoard.classList.remove('active');
-}
+  return winnerBoard.classList.remove("active");
+};
 
-
-const removeNodesContent = (nodes) => {
+const removeNodesContent = nodes => {
   for (node of nodes) {
     if (node.firstElementChild) {
       node.firstElementChild.remove();
     }
   }
-}
+};
+
+const removeWinnerPlayer = () => {
+  return (winnerPlayer.innerText = "");
+};
 
 const clearBoard = event => {
   event.preventDefault();
   start();
   removeWinnerBoard();
   removeNodesContent(cells);
-  removeNodesContent(winnerBoardContainer.);
+  removeWinnerPlayer();
   currentPlayer = "+";
   currentBoard = [null, null, null, null, null, null, null, null, null];
-}
+};
 
-clearButton.addEventListener('click', clearBoard);
+clearButton.addEventListener("click", clearBoard);
 
 const getPosition = element => {
   return Number.parseInt(element.dataset.cell, 10);
 };
 
 const changePlayer = player => {
-  return player === "+" ? currentPlayer = "o" : currentPlayer = "+";
+  return player === "+" ? (currentPlayer = "o") : (currentPlayer = "+");
 };
 
-const showWinner = (player) => {
-  const h3 = document.createElement("h3");
+const showWinner = player => {
   const content = document.createTextNode(player);
-  h3.appendChild(content);
-  winnerBoard.prepend(h3);
-  winnerBoard.classList.add('active');
-}
+  winnerPlayer.appendChild(content);
+  winnerBoard.classList.add("active");
+};
 
-checkWinnerPlayer = (player) => {
+checkWinnerPlayer = player => {
   let winner = checkWin(currentPlayer);
   if (winner) {
-    return showWinner(currentPlayer)
+    return showWinner(currentPlayer);
   }
   return changePlayer(currentPlayer);
-}
+};
 
 const renderPlayer = element => {
   const span = document.createElement("span");
@@ -100,9 +104,8 @@ const checkWin = player => {
   return ANSWERS.some(answer => {
     return answer.every(value => {
       return player === currentBoard[value];
-    })
-  })
+    });
+  });
 };
-
 
 start();
