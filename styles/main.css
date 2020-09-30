@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+section {
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+section > div {
+  flex-basis: 33%;
+  height: 10vw;
+}
+
+section > div:nth-last-of-type(5) {
+  border: 1px solid;
+}
+
+section > div:nth-last-of-type(2),
+section > div:nth-last-of-type(8) {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+
+section > div:nth-last-of-type(4),
+section > div:nth-last-of-type(6) {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}

@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/normalize.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <title>3 en línea</title>
+  </head>
+  <body>
+    <main>
+      <h1>3 en línea</h1>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="styles/style.css" />
-</head>
-
-<body>
-  <section>
-    <ul>
-      <li class="js-board-item board-item" data-cell="0"></li>
-      <li class="js-board-item board-item" data-cell="1"></li>
-      <li class="js-board-item board-item" data-cell="2"></li>
-      <li class="js-board-item board-item" data-cell="3"></li>
-      <li class="js-board-item board-item" data-cell="4"></li>
-      <li class="js-board-item board-item" data-cell="5"></li>
-      <li class="js-board-item board-item" data-cell="6"></li>
-      <li class="js-board-item board-item" data-cell="7"></li>
-      <li class="js-board-item board-item" data-cell="8"></li>
-    </ul>
-  </section>
-  <aside>
-    <button id="js-clear-button">Clear Game</button>
-  </aside>
-  <aside id="js-winner-board" class="winner-board">
-    <h1 id="js-winner-player"></h1>
-    <h2>Winner</h2>
-  </aside>
-
-  <script src="scripts/main.js"></script>
-</body>
-
+      <section class="grid">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </section>
+    </main>
+    <aside>
+      <h2>Score</h2>
+      <dl>
+        <dt>Player X</dt>
+        <dd id="player-x-score">0</dd>
+        <dt>Player O</dt>
+        <dd id="player-o-score">0</dd>
+      </dl>
+    </aside>
+    <script src="./scripts/index.js"></script>
+  </body>
 </html>
