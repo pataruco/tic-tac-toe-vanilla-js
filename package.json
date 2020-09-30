@@ -1,0 +1,19 @@
+{
+  "name": "tic-tac-toe-vanilla-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:pataruco/tic-tac-toe-vanilla-js.git",
+  "author": "Pedro Martin <pataruco@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3",
+    "webpack": "^4.44.2"
+  }
+}
