@@ -1,4 +1,6 @@
-const cells = Array.from(document.querySelectorAll('.grid > div'));
+const cells: HTMLDivElement[] = Array.from(
+  document.querySelectorAll('.grid > div'),
+);
 
 const playerXScoreElement = document.getElementById('player-x-score');
 const playerOScoreElement = document.getElementById('player-o-score');
@@ -14,9 +16,21 @@ const solutions = [
   [2, 4, 6],
 ];
 
-let board = [null, null, null, null, null, null, null, null, null];
+type Player = 'x' | 'o';
 
-let playerTurn = 'x';
+const board: string[] | null[] = [
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+];
+
+let playerTurn: Player = 'x';
 
 const changePlayerToPlay = () =>
   playerTurn === 'x' ? (playerTurn = 'o') : (playerTurn = 'x');
@@ -24,19 +38,19 @@ const changePlayerToPlay = () =>
 let playerXScore = 0;
 let playerOScore = 0;
 
-const checkIfPlayerWin = (player) =>
+const checkIfPlayerWin = (player: Player) =>
   solutions.some((solution) =>
     solution.every((positionValue) => player === board[positionValue]),
   );
 
-const addScore = (player) => {
+const addScore = (player: Player) => {
   player === 'x' ? playerXScore++ : playerOScore++;
-  playerXScoreElement.innerText = playerXScore;
-  playerOScoreElement.innerText = playerOScore;
+  playerXScoreElement.innerText = String(playerXScore);
+  playerOScoreElement.innerText = String(playerOScore);
 };
 
-const handleClick = (event) => {
-  const cellClicked = event.target;
+const handleClick = (event: Event) => {
+  const cellClicked = event.target as HTMLDivElement;
   cellClicked.innerText = playerTurn;
   cellClicked.removeEventListener('click', handleClick);
   const positionPlayed = cells.indexOf(cellClicked);
@@ -49,7 +63,7 @@ const handleClick = (event) => {
   changePlayerToPlay();
 };
 
-const addHandleClick = (cell) => {
+const addHandleClick = (cell: HTMLDivElement) => {
   cell.addEventListener('click', handleClick);
 };
 

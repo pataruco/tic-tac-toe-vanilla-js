@@ -8,11 +8,14 @@ import webpack from 'webpack';
 //   '../src/assets/party-popper.png',
 // );
 
+const dist = path.resolve(__dirname, '../dist');
+// const dist = path.resolve(__dirname, '../dist');
+
 const config: webpack.Configuration = {
   entry: './src/index.ts',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: dist,
   },
   devtool: 'inline-source-map',
   resolve: {
@@ -46,8 +49,7 @@ const config: webpack.Configuration = {
     // new FaviconsWebpackPlugin(favicon),
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    port: 3000,
+    contentBase: dist,
     clientLogLevel: 'warning',
     historyApiFallback: true,
     stats: 'errors-only',
