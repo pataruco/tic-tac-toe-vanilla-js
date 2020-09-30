@@ -18,31 +18,16 @@ let board = [null, null, null, null, null, null, null, null, null];
 
 let playerTurn = 'x';
 
-const changePlayerToPlay = () => {
-  if (playerTurn === 'x') {
-    playerTurn = 'o';
-  } else {
-    playerTurn = 'x';
-  }
-};
-
-// Players
+const changePlayerToPlay = () =>
+  playerTurn === 'x' ? (playerTurn = 'o') : (playerTurn = 'x');
 
 let playerXScore = 0;
 let playerOScore = 0;
 
-// 3.6.1
-const checkIfPlayerWin = (player) => {
-  // Recibo el jugador de turno y retorno en forma de booleano (true|false) el resultado de comparar si:
-  return solutions.some((solution) => {
-    return solution.every((positionValue) => {
-      // 3.6.1.1
-      // el jugador (X o O) esta presente en todas las posiciones descritas en la solucion dentro del array board
-      // retorna verdadero, sino falso
-      return player === board[positionValue];
-    });
-  });
-};
+const checkIfPlayerWin = (player) =>
+  solutions.some((solution) =>
+    solution.every((positionValue) => player === board[positionValue]),
+  );
 
 // 4.1
 const addScore = (player) => {
